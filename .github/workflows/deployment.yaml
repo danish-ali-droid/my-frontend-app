@@ -1,0 +1,20 @@
+name: Frontend deployment
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**"
+jobs:
+  check-syntax:
+      runs-on: ubuntu-latest
+      steps:
+         - name: checkout code
+           uses: actions/checkout@v4
+         - name: setup node
+           uses: actions/setup-node@v6
+           with:
+             node-version: '22'
+             cache: 'npm'
+             cache-dependency-path: package-lock.json      
+
+
