@@ -11,19 +11,14 @@ jobs:
          - name: checkout code
            uses: actions/checkout@v4
          - name: setup node
-           uses: actions/setup-node@v6
+           uses: actions/setup-node@v4
            with:
              node-version: '22'
              cache: 'npm'
              cache-dependency-path: package-lock.json      
-         - name: Ensure ESLint config exists
-           run: |
-          if [ ! -f .eslintrc.json ] && [ ! -f .eslintrc.js ] && [ ! -f .eslintrc.cjs ] && [ ! -f eslint.config.mjs ] && [ ! -f eslint.config.js ]; then
-            echo '{"extends": "next/core-web-vitals"}' > .eslintrc.json
-          fi
-         
+        
          - name: Run ESLint 
-           run: npm run lint -- --strict
+           run: npm run lint -- --deny-warnings
          
          - name: Check Prettier formatting
            run: npx prettier --check "app/**/*.{ts,jsx}" "components/**/*.{ts,jsx}" "lib/**/*.{ts,jsx}"

@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Rocket,
   Activity,
-  Layers,
   ShieldCheck,
   Server,
   Terminal,
@@ -21,7 +20,7 @@ export default function App() {
   const [repoUrl, setRepoUrl] = useState(
     "https://github.com/danish-ali/frontend-app-deployment",
   );
-  const [branch, setBranch] = useState("main");
+  const [branch] = useState("main");
   const [isDeploying, setIsDeploying] = useState(false);
   const [logs, setLogs] = useState([
     {
