@@ -75,4 +75,13 @@ jobs:
           name: frontend-build-${{github.sha}}
           path: dist/
           retention-days: 14   
-   
+  Deploy:
+     needs: Build
+     runs-on: ubuntu-latest
+     steps:
+        - name: downlaod artifect
+          uses: actions/download-artifact@v8
+          with:
+            name: frontend-build-${{github.sha}}
+        - name: show the structure    
+          run: ls -R
