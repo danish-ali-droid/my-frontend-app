@@ -20,16 +20,17 @@ jobs:
              cache: 'npm'
              cache-dependency-path: package-lock.json      
          - name: install oxlint
-           run: npm install -D  oxlint && npm install -D typescript 
+           run: npm install -D  oxlint  typescript  prettier
          - name: Run ESLint 
            run: npm run lint -- --deny-warnings
-         
+         - name: set the formet
+           run: npx prettier --write  "src/**/*.(ts|jsx)" 
          - name: Check Prettier formatting
-           run: npm install prettier && npx prettier --check  "src/**/*.(ts|jsx)"
+           run: npx prettier --check  "src/**/*.(ts|jsx)"
          - name: TypeScript strict type check
            run: npx tsc --noEmit
   Test:
-      needs: check syntax
+      needs: check-syntax
       runs-on: ubuntu-latest
       steps:
         - name: checkout the code
@@ -46,7 +47,7 @@ jobs:
           if: always()
           uses: actions/upload-artifect@v3
           with:
-           name: forntend-coverage-${{gihub.run_number}}
+           name: forntend-coverage-${{github.run_number}}
            path: coverage/
            retention-days: 14
               
