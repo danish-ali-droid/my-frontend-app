@@ -52,5 +52,27 @@ jobs:
            name: forntend-coverage-${{github.run_number}}
            path: coverage/
            retention-days: 14
-              
-      
+  Build:
+     needs: Test
+     runs-on: ubuntu-latest
+     steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      - name: setup node 
+        uses: actions/setup-node@v4
+        with:
+         node-version: '22'
+         cache: 'npm'
+         cache-dependency-path: package-lock.json
+      - name: install dependencies
+        run: npm install ci
+      - name: build the app
+        run: npm run build
+      - name: upload build to artifect
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: frontend-build-${{github.sha}}
+          path: dist/
+          retention-days: 14   
+   
