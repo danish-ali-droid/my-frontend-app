@@ -16,12 +16,13 @@ jobs:
              node-version: '22'
              cache: 'npm'
              cache-dependency-path: package-lock.json      
-        
+         - name: install oxlint
+           run: npm install oxlint       
          - name: Run ESLint 
            run: npm run lint -- --deny-warnings
          
          - name: Check Prettier formatting
-           run: npx prettier --check "app/**/*.{ts,jsx}" "components/**/*.{ts,jsx}" "lib/**/*.{ts,jsx}"
+           run: npm install prettier && npx prettier --check  "src/**/*.(ts|jsx)"
          - name: TypeScript strict type check
            run: npx tsc --noEmit
       
