@@ -17,7 +17,7 @@ jobs:
              cache: 'npm'
              cache-dependency-path: package-lock.json      
          - name: install oxlint
-           run: npm install oxlint       
+           run: npm install -D  oxlint && npm install -D typescript 
          - name: Run ESLint 
            run: npm run lint -- --deny-warnings
          
