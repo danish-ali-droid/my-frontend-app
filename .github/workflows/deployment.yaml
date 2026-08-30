@@ -19,8 +19,8 @@ jobs:
              node-version: '22'
              cache: 'npm'
              cache-dependency-path: package-lock.json      
-         - name: install oxlint
-           run: npm install -D  oxlint  typescript  prettier
+         - name: install dependencies
+           run: npm install 
          - name: Run ESLint 
            run: npm run lint -- --deny-warnings
          - name: set the formet
@@ -41,6 +41,8 @@ jobs:
             node-version: '22'
             cache: 'npm'
             cache-dependency-path: package-lock.json 
+        - name: install depenedencies
+          run: npm install
         - name: test every component
           run: npm test -- --coverage --reporter=verbose || echo "No Test define"
         - name: save the covergae into the artifect
