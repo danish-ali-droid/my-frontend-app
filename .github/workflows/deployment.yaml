@@ -45,7 +45,7 @@ jobs:
           run: npm test -- --coverage --reporter=verbose || echo "No Test define"
         - name: save the covergae into the artifect
           if: always()
-          uses: actions/upload-artifect@v3
+          uses: actions/upload-artifact@v7
           with:
            name: forntend-coverage-${{github.run_number}}
            path: coverage/
