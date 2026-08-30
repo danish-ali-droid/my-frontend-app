@@ -4,6 +4,9 @@ on:
     branches: [main]
     paths:
       - "**"
+concurrency:
+   group: ${{ github.workflow }}-${{ github.ref }}
+   cancel-in-progress: true
 jobs:
   check-syntax:
       runs-on: ubuntu-latest
@@ -25,4 +28,26 @@ jobs:
            run: npm install prettier && npx prettier --check  "src/**/*.(ts|jsx)"
          - name: TypeScript strict type check
            run: npx tsc --noEmit
+  Test:
+      needs: check syntax
+      runs-on: ubuntu-latest
+      steps:
+        - name: checkout the code
+          uses: actions/checkout@v4
+        - name: setup node 
+          uses: actions/setup-node@v4
+          with:
+            node-version: '22'
+            cache: 'npm'
+            cache-dependency-path: package-lock.json 
+        - name: test every component
+          run: npm test -- --coverage --reporter=verbose || echo "No Test define"
+        - name: save the covergae into the artifect
+          if: always()
+          uses: actions/upload-artifect@v3
+          with:
+           name: forntend-coverage-${{gihub.run_number}}
+           path: coverage/
+           retention-days: 14
+              
       
