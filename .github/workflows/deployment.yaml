@@ -111,7 +111,7 @@ jobs:
              cd dist
              zip -r ../app-${{github.sha}}.zip .
              cd ..
-             zip -g app-${{github.sha}}.zip appspec.yaml
+             zip -g app-${{github.sha}}.zip appspec.yml
              zip -g -r app-${{github.sha}}.zip scripts/ 
              unzip -l app-${{github.sha}}.zip
         - name: copy the archive to s3
@@ -121,4 +121,4 @@ jobs:
             aws deploy create-deployment \
             --application-name my-frontend-app \
             --deployment-group-name my-frontend-app-deployment-group \
-            --s3-location bucket=danish-frontend-app-bucket,key=app-${{ github.sha }}.zip,bundleType=zip 
+            --s3-location bucket=danish-frontend-app-bucket,key=app-${{github.sha}}.zip,bundleType=zip 
