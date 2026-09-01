@@ -16,6 +16,23 @@
       Name = "frontend-app-server-${count.index + 1}"
     }
   }
+#================================================
+# bastian host
+#================================================
+  resource "aws_instance" "bastian_host" {
+   
+    ami           = "ami-0fe71de6f2bab5fbf"
+    instance_type = "t3.micro"
+    subnet_id     = aws_subnet.public_subnet[0].id
+    key_name      = "danish-keypair"
+    vpc_security_group_ids = [aws_security_group.bastian_host_sg.id]
+    associate_public_ip_address = true
+    user_data = local.user_data
+    tags = {
+      Name = "frontend-app-server-${count.index + 1}"
+    }
+  }
+
   #===========================================================
       #  ceate load balancer for frontend app                                                                                                         
   #===========================================================
@@ -74,6 +91,7 @@
       protocol    = "tcp"
       cidr_blocks = ["0.0.0.0/0"] 
     }
+    
     egress {
       from_port   = 0
       to_port     = 0
@@ -82,6 +100,36 @@
     }
   tags = {
     Name = "frontend-app-lb-sg"
+  }
+  }
+  #============================================
+  # security_group for batian_host
+  #============================================
+    resource "aws_security_group" "bastian_host_sg" {
+    name        = "frontend-app-bastian-host-sg"
+    description = "Allow SSH and HTTP/HTTPS traffic"
+    vpc_id      = aws_vpc.frontend-app-vpc.id
+
+    ingress {
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"] 
+    }
+    ingress {
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"] 
+    }
+    egress {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  tags = {
+    Name = "frontend-app-bastian-host-sg"
   }
   }
   #===========================================================
