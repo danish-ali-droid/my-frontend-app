@@ -148,7 +148,7 @@ resource "aws_codedeploy_deployment_config" "frontend-app-deployment-config" {
 
 resource "aws_codedeploy_deployment_group" "frontend-app-deployment-group" {
 app_name = aws_codedeploy_app.frontend-app.name
-deployment_group_name = "my-frontend-app-depoyment-group"
+deployment_group_name = "my-frontend-app-deployment-group"
 service_role_arn = aws_iam_role.codedeploy_service_role.arn
 deployment_config_name = aws_codedeploy_deployment_config.frontend-app-deployment-config.deployment_config_name
 ec2_tag_set {
