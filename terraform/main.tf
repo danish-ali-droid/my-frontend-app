@@ -118,7 +118,7 @@
 # aws s3
 # =========================
   resource "aws_s3_bucket" "frontend-app-bucket"{
-    bucket =  "front-end-bucket"
+    bucket =  "danish-frontend-app-bucket"
     tags = {
       Name = "danish-frontend-app-bucket"
     }

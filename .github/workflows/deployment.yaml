@@ -101,11 +101,15 @@ jobs:
         - name: terraform apply
           working-directory: ./terraform
           run: terraform apply --auto-approve
+        - name: terraform destroy if fail
+          if: failure()
+          working-directory: ./terraform
+          run: terraform destroy --auto-approve
         - name: zip the bundle 
           run: | 
              zip -r app-${{github.sha}} . -x "terraform/*" ".git/*" 
         - name: copy the archive to s3
-          run: aws s3 cp -r app-${{github.sha}} s3://danish-frontend-app-bucket
+          run: aws s3 cp  app-${{github.sha}} s3://danish-frontend-app-bucket
         - name: deploy the code to code deploy
           run: aws deploy create-deployment \
             --application-name my-frontend-app \
