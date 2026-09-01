@@ -114,10 +114,13 @@
     Name = "frontend-app-instances_sg"
   }
   }
+# =========================
+# aws s3
+# =========================
   resource "aws_s3_bucket" "frontend-app-bucket"{
     bucket =  "front-end-bucket"
     tags = {
-      Name = "frontend-app-bucket"
+      Name = "danish-frontend-app-bucket"
     }
   }
 
