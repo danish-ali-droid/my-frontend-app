@@ -202,7 +202,7 @@ service_role_arn = aws_iam_role.codedeploy_service_role.arn
 deployment_config_name = aws_codedeploy_deployment_config.frontend-app-deployment-config.deployment_config_name
 ec2_tag_set {
     ec2_tag_filter {
-      key   = "Name"
+      key   = "App"
       type  = "KEY_AND_VALUE"
       value =  "frontend-app" 
     }
