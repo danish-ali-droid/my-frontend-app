@@ -54,6 +54,10 @@ resource "aws_iam_role_policy_attachment" "ssm_policy" {
     role = aws_iam_role.ec2_role.name
     policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
+resource "aws_iam_role_policy_attachment" "ec2_codedeploy_policy" {
+  role       = aws_iam_role.ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSCodeDeployFullAccess"
+}
 #===========================================
 # policies attachments for code deploy role            
 #===========================================
@@ -61,6 +65,7 @@ resource "aws_iam_role_policy_attachment" "codedeploy_managed" {
   role       = aws_iam_role.codedeploy_service_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole"
 }
+
 #======================================
 # instance profile             
 #======================================
