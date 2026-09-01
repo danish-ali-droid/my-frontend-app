@@ -85,6 +85,7 @@ jobs:
           uses: actions/download-artifact@v8
           with:
             name: frontend-build-${{github.sha}}
+            path: dist/
         - name: setup aws
           uses: aws-actions/configure-aws-credentials@v2
           with:
@@ -105,9 +106,13 @@ jobs:
           if: failure()
           working-directory: ./terraform
           run: terraform destroy --auto-approve
-        - name: zip the bundle 
-          run: | 
-             zip -r app-${{github.sha}}.zip  . -x "terraform/*" ".git/*" 
+        - name: zip the dist
+          run: |
+             cd dist
+             zip -r ../app-${{github.sha}}.zip .
+             cd ..
+             zip -g app-${{github.sha}}.zip appspec.yaml
+             zip -g -r app-${{github.sha}}.zip scripts/ 
              unzip -l app-${{github.sha}}.zip
         - name: copy the archive to s3
           run: aws s3 cp  app-${{github.sha}}.zip  s3://danish-frontend-app-bucket
