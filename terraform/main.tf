@@ -124,11 +124,6 @@
     }
   }
 
-  resource "aws_s3_bucket_policy" "frontend-app-bucket-policy" {
-    bucket = aws_s3_bucket.frontend-app-bucket.id
-    policy = local.bucket_policy
-  }
-
 #=====================================
 # code deploy 
 #=====================================
