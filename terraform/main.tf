@@ -29,7 +29,7 @@
     associate_public_ip_address = true
     user_data = local.user_data
     tags = {
-      Name = "frontend-app-server-${count.index + 1}"
+      Name = "jumper-server"
     }
   }
 
