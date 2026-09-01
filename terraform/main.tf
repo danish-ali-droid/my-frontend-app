@@ -14,6 +14,7 @@
     user_data = local.user_data
     tags = {
       Name = "frontend-app-server-${count.index + 1}"
+      App  = "frontend-app"
     }
   }
 #================================================
@@ -203,7 +204,7 @@ ec2_tag_set {
     ec2_tag_filter {
       key   = "Name"
       type  = "KEY_AND_VALUE"
-      value = "frontend-app-server-*" 
+      value =  "frontend-app" 
     }
   }
   load_balancer_info {
