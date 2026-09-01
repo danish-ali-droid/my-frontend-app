@@ -1,10 +1,9 @@
 #!/bin/bash
 set -e
-export DEBIAN_FRONTEND=noninteractive
-sudo apt update -y
-sudo apt install nginx -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get update -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y ruby-full wget
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nginx
 sudo systemctl enable --now nginx
-sudo apt install ruby-full wget -y
 cd /tmp
 wget https://aws-codedeploy-eu-north-1.s3.eu-north-1.amazonaws.com/latest/install
 chmod +x ./install

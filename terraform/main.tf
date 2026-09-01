@@ -28,7 +28,7 @@
     key_name      = "danish-keypair"
     vpc_security_group_ids = [aws_security_group.bastian_host_sg.id]
     associate_public_ip_address = true
-    user_data = local.user_data
+  
     tags = {
       Name = "jumper-server"
     }
