@@ -107,7 +107,7 @@ jobs:
           run: terraform destroy --auto-approve
         - name: zip the bundle 
           run: | 
-             zip -r app-${{github.sha}} . -x "terraform/*" ".git/*" 
+             zip -r app-${{github.sha}}.zip  . -x "terraform/*" ".git/*" 
         - name: copy the archive to s3
           run: aws s3 cp  app-${{github.sha}}.zip  s3://danish-frontend-app-bucket
         - name: deploy the code to code deploy
